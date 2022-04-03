@@ -21,7 +21,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
   }
 
   void addTaskHandler() {
-    Navigator.of(context).pushNamed(AddTaskScreen.route());
+    Navigator.of(context).push(AddTaskScreen.route());
   }
 
 

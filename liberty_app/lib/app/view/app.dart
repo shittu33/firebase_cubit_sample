@@ -15,7 +15,8 @@ class App extends StatelessWidget {
   const App({
     Key? key,
     required AuthenticationRepository authenticationRepository,
-  })  : _authenticationRepository = authenticationRepository,
+  })
+      : _authenticationRepository = authenticationRepository,
         super(key: key);
 
   final AuthenticationRepository _authenticationRepository;
@@ -25,9 +26,10 @@ class App extends StatelessWidget {
     return RepositoryProvider.value(
       value: _authenticationRepository,
       child: BlocProvider(
-        create: (_) => AppBloc(
-          authenticationRepository: _authenticationRepository,
-        ),
+        create: (_) =>
+            AppBloc(
+              authenticationRepository: _authenticationRepository,
+            ),
         child: const AppView(),
       ),
     );
@@ -42,35 +44,13 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        AppRoutes.home: (ctx) => const HomePage(),
-        AppRoutes.onboard: (ctx) => const OnboardPage(),
-        AppRoutes.register: (ctx) => const RegisterScreen(),
-        AppRoutes.login: (ctx) => const LoginScreen(),
-        AppRoutes.projects: (ctx) => const ProjectListScreen(),
-        AppRoutes.tasks: (ctx) => const TaskListScreen(),
-        AppRoutes.addTask: (ctx) => const AddTaskScreen(),
-        AppRoutes.addProject: (ctx) => const AddProjectScreen(),
-      },
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: AppTheme.light,
-      initialRoute: AppRoutes.home,
-      // home:
+      home: FlowBuilder<AppStatus>(
+        state: context.select((AppBloc bloc) => bloc.state.status),
+        onGeneratePages: AppRoutes.onGenerateAppViewPages,
+      ),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FlowBuilder<AppStatus>(
-          state: context.select((AppBloc bloc) => bloc.state.status),
-          onGeneratePages: AppRoutes.onGenerateAppViewPages,
-        );
   }
 }
