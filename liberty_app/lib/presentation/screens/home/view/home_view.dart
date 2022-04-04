@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liberty_app/app/routes.dart';
 import 'package:liberty_app/app/theme.dart';
 import 'package:liberty_app/presentation/screens/project/project.dart';
 import 'package:liberty_app/presentation/screens/task/task.dart';
 import 'package:liberty_app/presentation/widget/widgets.dart';
 
+import '../../../../app/bloc/app_bloc.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   static Page page() => const MaterialPage<void>(child: HomeScreen());
+
+  static route() =>
+      MaterialPageRoute<void>(builder: (_) => const HomeScreen());
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void projectHandler() {
-    Navigator.of(context).push(ProjectListScreen.route());
-  }
-
-  void taskHandler() {
-    Navigator.of(context).push(TaskListScreen.route());
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    void projectHandler() {
+      Navigator.of(context).push(ProjectListScreen.route());
+    }
+
+    void taskHandler() {
+      Navigator.of(context).push(TaskListScreen.route());
+    }
+
     return SliverAppScaffold(
       fabHandler: () => Navigator.of(context).push(AddProjectScreen.route()),
       /// page Title
@@ -32,11 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Hi Dexter',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-                  ?.copyWith(color: AppColors.black)),
+          BlocBuilder<AppBloc, AppState>(
+              builder: (context, state) {
+                return Text('Hi ${state.user.name}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(color: AppColors.black));
+            }
+          ),
           Text(
             'Welcome onboard',
             style: Theme.of(context).textTheme.overline,

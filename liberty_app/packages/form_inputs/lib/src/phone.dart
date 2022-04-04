@@ -23,7 +23,7 @@ class Phone extends FormzInput<String, PhoneValidationError> {
 
   @override
   PhoneValidationError? validator(String? value) {
-    return null;
+    // return null;
     // return (value==null || value.isEmpty)
     //     ? PhoneValidationError.invalid
     //     :null;

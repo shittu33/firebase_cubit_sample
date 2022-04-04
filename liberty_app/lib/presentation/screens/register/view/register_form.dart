@@ -126,14 +126,13 @@ class _PhoneField extends StatelessWidget {
     //   ),
     // );
     return BlocBuilder<SignUpCubit, SignUpState>(
-        buildWhen: (previous, current) => previous.status != current.status,
+        buildWhen: (previous, current) => previous.phone != current.phone,
         builder: (context, state) {
           return SizedBox(
             height: 56,
             child: TextFormField(
               key: const Key('signUpForm_phoneInput_textField'),
               onChanged: (phone) {
-                print(phone);
                 context.read<SignUpCubit>().phoneChanged(phone);
               },
               decoration: InputDecoration(
@@ -167,14 +166,8 @@ class _NameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextFormField(
-    //   decoration: const InputDecoration(
-    //     label: Text('Name'),
-    //   ),
-    //   keyboardType: TextInputType.text,
-    // );
     return BlocBuilder<SignUpCubit, SignUpState>(
-        buildWhen: (previous, current) => previous.status != current.status,
+        buildWhen: (previous, current) => previous.name != current.name,
         builder: (context, state) {
           return TextFormField(
             key: const Key('signUpForm_nameInput_textField'),

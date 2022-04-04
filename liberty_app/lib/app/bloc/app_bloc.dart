@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'app_event.dart';
+
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
@@ -27,10 +28,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final AuthenticationRepository _authenticationRepository;
   late final StreamSubscription<User> _userSubscription;
 
-  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) async {
+    print("Firestore User");
+    print(event.user.email);
+    final user =
+        await _authenticationRepository.fireStoreUser(event.user.email ?? '');
+
+    print(user.toJson(user));
+
     emit(
       event.user.isNotEmpty
-          ? AppState.authenticated(event.user)
+          ? AppState.authenticated(user)
           : const AppState.pure(),
     );
   }

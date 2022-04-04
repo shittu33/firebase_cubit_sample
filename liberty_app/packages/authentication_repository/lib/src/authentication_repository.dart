@@ -172,31 +172,17 @@ class AuthenticationRepository {
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-
-      // _cache.write(key: userCacheKey, value: user);
+      _cache.write(key: userCacheKey, value: user);
       return user;
     });
   }
 
   /// get the save user from fireStore
-  Stream<User> fireStoreUser(String email) {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-
-
-      return user;
-    });
-    return userCollection
-        .where('email', isEqualTo: email)
-        .snapshots()
-        .map((event) {
-      final userMap = event.docs.first.data() as Map<String, String>;
-      final user = User.fromJson(userMap);
-
-      /// save retrieved user in cache
-      _cache.write(key: userCacheKey, value: user);
-      return user;
-    });
+  Future<User> fireStoreUser(String email) async {
+    final future = await userCollection.where('email', isEqualTo: email).get();
+    final data = future.docs.first.data();
+    final user = User.fromJson(data);
+    return user;
   }
 
   /// Returns the current cached user.

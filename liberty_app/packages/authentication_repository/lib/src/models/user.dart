@@ -13,16 +13,16 @@ class User extends Equatable {
     this.phone,
   });
 
-
   /// covert [Map] to [User]
-  factory User.fromJson(Map<String, String> userMap) {
+  factory User.fromJson(Map<String, dynamic> userMap) {
     return User(
-      id: userMap['id']!,
-      email: userMap['email'],
-      phone: userMap['phone'],
-      name: userMap['name'],
+      id: userMap['id'].toString(),
+      email: userMap['email'].toString(),
+      phone: userMap['phone'].toString(),
+      name: userMap['name'].toString(),
     );
   }
+
   /// The current user's email address.
   final String? email;
 
@@ -56,7 +56,6 @@ class User extends Equatable {
     };
   }
 
-
   @override
-  List<Object?> get props => [email, id, name, photo,phone];
+  List<Object?> get props => [email, id, name, photo, phone];
 }

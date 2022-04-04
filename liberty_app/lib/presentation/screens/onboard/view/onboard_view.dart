@@ -12,6 +12,9 @@ class OnboardPage extends StatelessWidget {
 
   static Page page() => const MaterialPage<void>(child: OnboardPage());
 
+  static route() =>
+      MaterialPageRoute<void>(builder: (_) => const OnboardPage());
+
   @override
   Widget build(BuildContext context) {
 
