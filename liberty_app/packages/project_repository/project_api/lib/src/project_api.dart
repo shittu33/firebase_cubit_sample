@@ -1,4 +1,3 @@
-
 import 'package:project_api/src/models/models.dart';
 
 /// {@template projects_api}
@@ -9,7 +8,7 @@ abstract class ProjectsApi {
   const ProjectsApi();
 
   /// Provides a [Stream] of all projects.
-  Stream<List<Project>> getProjects();
+  Stream<List<Project>> projects({String? owner});
 
   /// Saves a [project].
   ///

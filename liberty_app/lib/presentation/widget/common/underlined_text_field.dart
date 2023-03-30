@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:liberty_app/app/theme.dart';
 
 class UnderLinedTextFormField extends StatelessWidget {
-  const UnderLinedTextFormField({Key? key, this.label, this.suffix})
+  const UnderLinedTextFormField(
+      {Key? key, this.label, this.suffix, this.onChanged, this.errorText})
       : super(key: key);
   final Widget? label;
   final Widget? suffix;
+  final Function(String text)? onChanged;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: buildInputDecoration(context, label: label, suffix: suffix),
+      onChanged: onChanged,
+      decoration: buildInputDecoration(context,
+          label: label, suffix: suffix, errorText: errorText),
     );
   }
 
@@ -20,6 +25,7 @@ class UnderLinedTextFormField extends StatelessWidget {
     Widget? suffix,
     Widget? prefix,
     bool? isCollapsed,
+    String? errorText,
   }) {
     return InputDecoration(
       label: label,
@@ -28,6 +34,7 @@ class UnderLinedTextFormField extends StatelessWidget {
       prefixIconConstraints: BoxConstraints.tight(const Size(35, 35)),
       isCollapsed: isCollapsed ?? false,
       suffixIconConstraints: BoxConstraints.tight(const Size(23, 23)),
+      errorText: errorText,
       labelStyle: Theme.of(context)
           .textTheme
           .overline

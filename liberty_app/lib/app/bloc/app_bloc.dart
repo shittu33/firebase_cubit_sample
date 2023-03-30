@@ -4,6 +4,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:liberty_app/util/util.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'app_event.dart';
@@ -25,16 +26,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
   }
 
-  final AuthenticationRepository _authenticationRepository;
   late final StreamSubscription<User> _userSubscription;
+  final AuthenticationRepository _authenticationRepository;
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) async {
-    print("Firestore User");
-    print(event.user.email);
+    printOnDebug("Firestore User");
+    printOnDebug(event.user.email);
     final user =
         await _authenticationRepository.fireStoreUser(event.user.email ?? '');
 
-    print(user.toJson(user));
+    printOnDebug(user.toJson(user));
 
     emit(
       event.user.isNotEmpty

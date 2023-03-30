@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:liberty_app/presentation/widget/widgets.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-
+import 'package:projects_repository/firebase_project_repository.dart';
+import 'package:intl/intl.dart';
 import '../../app/theme.dart';
-import 'common/rounded_icon.dart';
 
 class ProjectItem extends StatelessWidget {
-  const ProjectItem({Key? key, this.addTaskHandler}) : super(key: key);
+  const ProjectItem({Key? key, this.addTaskHandler, required this.project})
+      : super(key: key);
 
   final Function()? addTaskHandler;
+  final Project project;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,13 @@ class ProjectItem extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   backgroundColor: AppColors.primary,
-                  backgroundImage: NetworkImage(''),
+                  // backgroundImage: NetworkImage(''),
                 ),
                 minLeadingWidth: 23,
                 contentPadding: EdgeInsets.zero,
-                title: Text('Liberty Pay',
+                title: Text(project.name ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1
@@ -86,14 +86,17 @@ class ProjectItem extends StatelessWidget {
                           const SizedBox(
                             height: 2,
                           ),
-                          Text(
-                            '27-3-2022',
-                            style: Theme.of(context)
-                                .textTheme
-                                .overline
-                                ?.copyWith(
-                                    color: AppColors.black, fontSize: 10),
-                          ),
+                          if (project.createdFrom != null)
+                            Text(
+                              DateFormat('d-M-yyyy')
+                                  .format(project.createdFrom!.toDate())
+                                  .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .overline
+                                  ?.copyWith(
+                                      color: AppColors.black, fontSize: 10),
+                            ),
                         ],
                       ),
                     ),
@@ -112,14 +115,17 @@ class ProjectItem extends StatelessWidget {
                           const SizedBox(
                             height: 2,
                           ),
-                          Text(
-                            '27-3-2022',
-                            style: Theme.of(context)
-                                .textTheme
-                                .overline
-                                ?.copyWith(
-                                    color: AppColors.black, fontSize: 10),
-                          ),
+                          if (project.endOn != null)
+                            Text(
+                              DateFormat('d-M-yyyy')
+                                  .format(project.endOn!.toDate())
+                                  .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .overline
+                                  ?.copyWith(
+                                      color: AppColors.black, fontSize: 10),
+                            ),
                         ],
                       ),
                     ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -47,12 +48,12 @@ class Project extends Equatable {
   /// The title of the project.
   ///
   /// Note that the title may be empty.
-  final String name;
+  final String? name;
 
   /// The description of the project.
   ///
   /// Defaults to an empty string.
-  final String description;
+  final String? description;
 
   /// Owner Email
   final String? owner;
@@ -60,18 +61,19 @@ class Project extends Equatable {
   /// Whether the project is completed.
   ///
   /// Defaults to `false`.
-  final bool isCompleted;
+  final bool? isCompleted;
 
   /// the created date of Project
-  final DateTime? createdFrom;
+  final Timestamp? createdFrom;
 
   /// the end date of Project
-  final DateTime? endOn;
+  final Timestamp? endOn;
 
   /// tags
   final List<String>? tags;
 
   /// staffs
+  // final List<Staff>? staffs;
   final List<String>? staffs;
 
   /// Returns a copy of this project with the given values updated.
@@ -85,8 +87,8 @@ class Project extends Equatable {
     bool? isCompleted,
     List<String>? tags,
     List<String>? staffs,
-    DateTime? createdFrom,
-    DateTime? endOn,
+    Timestamp? createdFrom,
+    Timestamp? endOn,
   }) {
     return Project(
       id: id ?? this.id,
@@ -108,5 +110,6 @@ class Project extends Equatable {
   JsonMap toJson() => _$ProjectToJson(this);
 
   @override
-  List<Object> get props => [id, name, description, isCompleted,owner!];
+  List<Object> get props =>
+      [id, name ?? '', description ?? '', isCompleted ?? '', owner ?? ''];
 }

@@ -6,24 +6,32 @@ part of 'project.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
-      id: json['id'] as String?,
-      name: json['title'] as String,
-      description: json['description'] as String? ?? '',
-      isCompleted: json['owner'] as bool? ?? false,
-      tags: json['tags'] as List<String>,
-      staffs: json['staffs'] as List<String> ?? [],
-      createdFrom: json['createdFrom'] as DateTime,
-      endOn: json['endOn'] as DateTime?,
-    );
+Project _$ProjectFromJson(Map<String, dynamic> json) {
+  return Project(
+    id: json['id'] as String?,
+    name: json['name'] as String?,
+    description: json['description'] as String? ?? '',
+    isCompleted: json['isCompleted'] as bool? ?? false,
+    owner: json['owner'] as String? ?? '',
+    tags: (json['tags'] as List?)?.map((dynamic e) => e.toString()).toList(),
+    staffs:
+        (json['staffs'] as List?)?.map((dynamic e) => e.toString()).toList(),
+    createdFrom: json['createdFrom'] as Timestamp?,
+    endOn: json['endOn'] as Timestamp?,
+  );
+}
 
-Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.name,
-      'description': instance.description,
-      'isCompleted': instance.isCompleted,
-      'tags': instance.tags,
-      'staffs': instance.staffs,
-      'createdFrom': instance.createdFrom,
-      'endOn': instance.endOn,
-    };
+Map<String, dynamic> _$ProjectToJson(Project instance) {
+  final staffs = instance.staffs;
+  return <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'owner': instance.owner,
+    'description': instance.description,
+    'isCompleted': instance.isCompleted,
+    'tags': instance.tags,
+    'staffs': staffs,
+    'createdFrom': instance.createdFrom,
+    'endOn': instance.endOn,
+  };
+}

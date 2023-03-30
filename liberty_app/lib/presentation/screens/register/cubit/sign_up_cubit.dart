@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
+import 'package:liberty_app/util/util.dart';
 
 part 'sign_up_state.dart';
 
@@ -99,11 +100,11 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> signUpFormSubmitted() async {
     if (!state.status.isValidated) {
-      print('Invalidated');
+      printOnDebug('Invalidated');
       return;
     } else {
-      print('Phone is:');
-      print(state.phone.value);
+      printOnDebug('Phone is:');
+      printOnDebug(state.phone.value);
     }
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {

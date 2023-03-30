@@ -109,9 +109,7 @@ class _SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     signInHandler(LoginState state) {
-      // if (state.status.isValidated) {
       context.read<LoginCubit>().logInWithCredentials();
-      // }
     }
 
     return BlocBuilder<LoginCubit, LoginState>(

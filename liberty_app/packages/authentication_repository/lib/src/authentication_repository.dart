@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:meta/meta.dart';
 
 /// Thrown if during the sign up process if a failure occurs.
@@ -205,7 +204,9 @@ class AuthenticationRepository {
       );
       await userCollection.add(user.toJson(user));
       _cache.write(key: userCacheKey, value: user);
-      print('user saved ${user.toJson(user)}');
+      if (kDebugMode) {
+        print('user saved ${user.toJson(user)}');
+      }
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {

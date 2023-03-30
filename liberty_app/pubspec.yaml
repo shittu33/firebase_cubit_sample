@@ -38,9 +38,13 @@ dependencies:
   datetime_picker_formfield: ^2.0.0
   authentication_repository:
     path: packages/authentication_repository
+  projects_repository:
+    path: packages/project_repository/firebase_project_repository
   flow_builder: ^0.0.4
   form_inputs:
     path: packages/form_inputs
+  new_project_form_inputs:
+    path: packages/project_repository/new_project_form_inputs
   formz: ^0.4.0
   material_tag_editor: ^0.1.2
 

@@ -7,10 +7,11 @@ import 'package:liberty_app/presentation/widget/common/underlined_text_field.dar
 
 class DateFormPicker extends StatelessWidget {
   const DateFormPicker(
-      {Key? key, required this.selectedDateHandler, this.label, this.suffix})
+      {Key? key, required this.selectedDateHandler, this.label, this.suffix, this.errorText,})
       : super(key: key);
   final String? label;
   final Widget? suffix;
+  final String? errorText;
 
   final void Function(DateTime? dateTime) selectedDateHandler;
 
@@ -35,7 +36,7 @@ class DateFormPicker extends StatelessWidget {
           onChanged: selectedDateHandler,
           decoration: UnderLinedTextFormField.buildInputDecoration(
             context,
-            // label: label,
+            errorText: errorText,
             suffix: Container(),
             prefix: Padding(
               padding: const EdgeInsets.only(right: 5.0, bottom: 8),

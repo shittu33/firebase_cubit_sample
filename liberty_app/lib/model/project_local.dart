@@ -1,11 +1,11 @@
-class Project {
+class ProjectLocal {
   String title;
   DateTime startDate;
   DateTime endDate;
   String? dayLeft;
   double progress;
 
-  Project(
+  ProjectLocal(
     this.title,
     this.startDate,
     this.endDate,
